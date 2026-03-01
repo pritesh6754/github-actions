@@ -1,5 +1,5 @@
 #This is workflow name
-name: Hello Workflow ji
+name: Hello Workflow
 
 #runs on a trigger
 on:
