@@ -6,20 +6,35 @@ on:
   
 jobs:
 
-  welcome:
+  code:
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: what is your name?
+        run: echo "My name is Pritesh"
+  
+  build:
+    needs: code
     runs-on: ubuntu-slim
 
     steps:
       - name: what is your name?
         run: echo "My name is Pritesh"
 
-      - name: Machine name is?
-        run: echo "Machine name is $User"
 
-  details:
+  test:
+     needs: build
      runs-on: ubuntu-slim
 
      steps:
        - name: version of docker & python
          run: docker --version && python --version
+
+  deploy:
+     needs: test
+     runs-on: ubuntu-slim
+
+     steps:
+       - name: version of docker & python
+         run: docker --version && python --version       
        
