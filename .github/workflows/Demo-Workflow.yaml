@@ -1,0 +1,17 @@
+name: Demo
+
+on:
+  push:
+  branches: [main]
+  
+jobs:
+
+  welcome:
+    runs-on: ubuntu-slim
+
+    steps:
+      - name: what is your name?
+        run: echo "My name is Pritesh"
+
+      - name: Machine name is?
+        run: echo "Machine name is $User"         
