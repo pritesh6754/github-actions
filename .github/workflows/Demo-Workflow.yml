@@ -16,7 +16,7 @@ jobs:
       - name: Machine name is?
         run: echo "Machine name is $User"
 
-   details:
+  details:
      runs-on: ubuntu-slim
 
      steps:
