@@ -26,7 +26,9 @@ jobs:
               uses: actions/configure-pages@v4
             # static code artifacts
             - name: Upload static files
-              uses: actions/upload-pages-artifact@v4  
+              uses: actions/upload-pages-artifact@v4 
+              with:
+                path: "." 
             # make page live
             - name: Deploy to github pages
               uses: actions/deploy-pages@v4  
