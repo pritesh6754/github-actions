@@ -1,0 +1,39 @@
+name: Practice Job
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+
+    Job 1:
+        runs-on: ubuntu-slim
+
+        steps:
+            - name: This is 1st Job
+            - run: echo "My name is Pritesh"
+
+    Job 2:
+        needs: Job 1
+        runs-on: ubuntu-slim
+
+        steps:
+            - name: This is 2nd Job
+            - run: docker --version
+        
+    Job 3:
+        needs: Job 2
+        runs-on: ubuntu-slim
+
+        steps:
+            - name: This is 3rd Job
+            - run: git --version
+        
+    Job 4:
+        needs: Job 3
+        runs-on: ubuntu-slim
+        
+        steps:
+            - name: This is 4th Job
+            - run: pwd
+
