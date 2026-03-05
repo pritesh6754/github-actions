@@ -6,34 +6,34 @@ on:
 
 jobs:
 
-    Job 1:
+    Job1:
         runs-on: ubuntu-slim
 
         steps:
             - name: This is 1st Job
-            - run: echo "My name is Pritesh"
+              run: echo "My name is Pritesh"
 
-    Job 2:
-        needs: Job 1
+    Job2:
+        needs: Job1
         runs-on: ubuntu-slim
 
         steps:
             - name: This is 2nd Job
-            - run: docker --version
+              run: docker --version
         
-    Job 3:
-        needs: Job 2
+    Job3:
+        needs: Job2
         runs-on: ubuntu-slim
 
         steps:
             - name: This is 3rd Job
-            - run: git --version
+              run: git --version
         
-    Job 4:
-        needs: Job 3
+    Job4:
+        needs: Job3
         runs-on: ubuntu-slim
         
         steps:
             - name: This is 4th Job
-            - run: pwd
+              run: pwd
 
