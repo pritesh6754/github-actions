@@ -3,4 +3,4 @@ services:
     web:
       image: ${DOCKERHUB_USER}/github-actions-app:${DOCKER_TAG}
       ports:
-        - "8000:8000"
+        - "80:80"
