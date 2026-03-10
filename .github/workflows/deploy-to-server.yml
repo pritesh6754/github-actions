@@ -8,7 +8,10 @@ jobs:
     deploy:
         runs-on: ubuntu-latest
         steps:
-            - name: Deploy to Server
+            - name: Checkout Code
+              uses: actions/checkout@v3
+
+            - name: SSH to Server and Create the folder 
               uses: appleboy/ssh-action@v1.0.3        
               with:
                 host: ${{ secrets.EC2_SSH_HOST }}
@@ -16,5 +19,28 @@ jobs:
                 key: ${{ secrets.EC2_SSH_KEY }}
                 script: |
                   echo "Starting Deployment..."
-                  mkdir devops
-                  
+                  mkdir -p devops
+
+            - name: Copy the docker compose file to the server
+              uses: appleboy/scp-action@master
+              with:
+                host: ${{ secrets.EC2_SSH_HOST }}
+                username: ${{ secrets.EC2_SSH_USER }}
+                key: ${{ secrets.EC2_SSH_KEY }}
+                source: "docker-compose.yml"
+                target: "~/devops/docker-compose.yml"  
+
+            - name: SSH to Server and run the app
+              uses: appleboy/ssh-action@v1.0.3        
+              with:
+                host: ${{ secrets.EC2_SSH_HOST }}
+                username: ${{ secrets.EC2_SSH_USER }}
+                key: ${{ secrets.EC2_SSH_KEY }}
+                script: |
+                  echo "Runing App..."    
+                  sudo apt-get update && sudo apt-get install docker.io docker-compose-v2 -y
+                  sudo usermod -aG docker $USER && newgrp docker
+                  echo ${{ secrets.DOCKERHUB_TOKEN}} | docker login -u ${{ vars.DOCKERHUB_USER }} --password-stdin
+                  export DOCKERHUB_USER = ${{ vars.DOCKERHUB_USER }}
+                  export DOCKER_TAG = ${{ github.sha}}
+                  cd ~/devops && docker compose down && docker compose up -d --build --force-recreate -d --pull always
