@@ -28,7 +28,7 @@ jobs:
                 username: ${{ secrets.EC2_SSH_USER }}
                 key: ${{ secrets.EC2_SSH_KEY }}
                 source: "docker-compose.yml"
-                target: "~/devops/docker-compose.yml"  
+                target: "~/devops/"  
 
             - name: SSH to Server and run the app
               uses: appleboy/ssh-action@v1.0.3        
@@ -43,4 +43,4 @@ jobs:
                   echo ${{ secrets.DOCKERHUB_TOKEN}} | docker login -u ${{ vars.DOCKERHUB_USER }} --password-stdin
                   export DOCKERHUB_USER=${{ vars.DOCKERHUB_USER }}
                   export DOCKER_TAG=${{ github.sha}}
-                  cd ~/devops && docker compose down && docker compose up -d --build --force-recreate -d --pull always
+                  cd ~/devops && docker compose down && docker compose up -d --build --force-recreate --pull always
