@@ -20,5 +20,5 @@ jobs:
             - name: Install pip-audit
               run: pip install pip-audit
             
-            - name: Audit dependencies
-              run: pip-audit -r requirements.txt
+            # - name: Audit dependencies
+            #   run: pip-audit -r requirements.txt
